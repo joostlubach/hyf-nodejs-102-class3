@@ -1,10 +1,8 @@
-var fs = require('fs');
-var filename = __dirname + '/../todo.txt';
+import fs from 'fs';
+import {filename} from '../config';
 
-function addItem(item) {
-  var line = ' ' + item + '\n';
+export default function addItem(item) {
+  const line = ` ${item}\n`;
 
   fs.appendFile(filename, line);
 }
-
-module.exports = addItem;

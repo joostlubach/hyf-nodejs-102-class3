@@ -1,11 +1,6 @@
-var commands = {
-  list: require('./commands/list'),
-  help: require('./commands/help'),
-  add: require('./commands/add'),
-  done: require('./commands/done')
-}
+import * as commands from './commands';
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
 if (args.length === 0) {
   commands.help();
@@ -20,17 +15,17 @@ if (args.length === 0) {
       break;
 
     case 'add':
-      var item = args.slice(1).join(' ');
+      const item = args.slice(1).join(' ');
       commands.add(item);
       break;
 
     case 'done':
-      var number = parseInt(args[1], 10);
+      const number = parseInt(args[1], 10);
       commands.done(number);
       break;
 
     default:
-      console.error('Unknown command: ' + args[0] + '. Type "node . help" for info.');
+      console.error(`Unknown command: ${args[0]}. Type "node . help" for info.`);
       break;
   }
 }

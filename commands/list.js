@@ -1,23 +1,21 @@
-var fs = require('fs');
-var filename = __dirname + '/../todo.txt';
+import fs from 'fs';
+import {filename} from '../config';
 
-function showList() {
-  var lines, line, done;
-
-  fs.readFile(filename, 'utf-8', function (error, data) {
+export default function showList() {
+  fs.readFile(filename, 'utf-8', (error, data) => {
 
     if (error == null) {
       data = data.slice(0, data.length - 1);
 
-      lines = data.split(/\n/);
+      const lines = data.split(/\n/);
 
       console.log('To-do items:\n');
 
-      for (var i = 0; i < lines.length; i++) {
-        line = lines[i];
-        done = line.charAt(0) != ' ';
-
-        console.log('  ' + (i + 1) + ': ' + line.slice(1) + ' (done: ' + done + ')');
+      let todoNumber = 1;
+      for (let line of lines) {
+        const done = line.charAt(0) != ' ';
+        console.log(`  ${todoNumber}: ${line.slice(1)} (done: ${done})`);
+        todoNumber++;
       }
 
     } else if (error.code == 'ENOENT') {
@@ -28,5 +26,3 @@ function showList() {
 
   });
 }
-
-module.exports = showList;
